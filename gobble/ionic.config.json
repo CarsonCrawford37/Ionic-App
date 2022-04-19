@@ -1,0 +1,7 @@
+{
+  "name": "gobble",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
