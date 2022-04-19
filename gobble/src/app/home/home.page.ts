@@ -16,10 +16,12 @@ export class HomePage {
 
 
   constructor(public restaurantService: RestaurantService) {
-    this.updateCoords();
+    this.getRestaurants();
   }
 
-  getRestaurants() {
+  async getRestaurants() {
+
+    await this.updateCoords();
 
     if (this.canGetRestaurants) {
 
@@ -82,16 +84,21 @@ export class HomePage {
 
   }
 
-  updateCoords() {
-    this.restaurantService.getCoords()
-      .then( data => {
-          this.lat = data.latitude;
-          this.lon = data.longitude;
-          this.canGetRestaurants = true;
-        },
-        data => {
-          console.error(data);
-        });
+  updateCoords(): Promise<any> {
+
+    return new Promise(((resolve, reject) => {
+      this.restaurantService.getCoords()
+        .then( data => {
+            this.lat = data.latitude;
+            this.lon = data.longitude;
+            this.canGetRestaurants = true;
+            resolve(true);
+          },
+          (err) => {
+            console.error(err);
+          });
+    }));
+
   }
 
 }
