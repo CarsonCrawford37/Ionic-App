@@ -6,7 +6,7 @@ export const environment = {
   production: false
 };
 
-export const FS_PLACES_API_KEY = 'fsq34LJedHCwR6kUD9gxBiZb0MAeF4MsgJ3l7+ATWbXnJoc='
+export const FS_PLACES_API_KEY = 'fsq34LJedHCwR6kUD9gxBiZb0MAeF4MsgJ3l7+ATWbXnJoc=';
 
 /*
  * For easier debugging in development mode, you can import the following file

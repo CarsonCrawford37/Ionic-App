@@ -12,6 +12,7 @@ export class HomePage {
   restaurantsString: string;
   restaurants = [];
   photoURLS = [];
+  canGetRestaurants = false;
 
 
   constructor(public restaurantService: RestaurantService) {
@@ -20,30 +21,39 @@ export class HomePage {
 
   getRestaurants() {
 
-    this.restaurants = [];
+    if (this.canGetRestaurants) {
 
-    this.restaurantService.getRestaurants()
-      .then((res) => {
+      this.canGetRestaurants = false;
 
-        for (const re of res) {
-          this.restaurants.push({
-            id: re.fsq_id,
-            name: re.name,
-            address: re.location.address,
-            photoURL: '',
-          });
-        }
+      this.restaurants = [];
 
-        this.getRestaurantPhotos();
-        // this.restaurantsString = JSON.stringify(this.restaurants, null, 4);
-        this.restaurantsString = 'got foods!';
+      this.restaurantService.getRestaurants()
+        .then((res) => {
 
-        console.log(this.restaurants);
+          for (const re of res) {
+            this.restaurants.push({
+              id: re.fsq_id,
+              name: re.name,
+              address: re.location.address,
+              photoURL: '',
+              description: re.description
+            });
+          }
 
-      }, (err) => {
-        console.error(err);
-        this.restaurantsString = 'there was a problem finding places to eat near you :(';
-      });
+          this.getRestaurantPhotos();
+          // this.restaurantsString = JSON.stringify(this.restaurants, null, 4);
+          this.restaurantsString = 'got foods!';
+
+          console.log(this.restaurants);
+
+        }, (err) => {
+          console.error(err);
+          this.restaurantsString = 'there was a problem finding places to eat near you :(';
+        });
+    }
+
+    this.canGetRestaurants = true;
+
   }
 
   getRestaurantPhotos() {
@@ -61,6 +71,8 @@ export class HomePage {
 
             restaurant.photoURL = this.restaurantService.getPhotoURL(photoData[0]);
 
+          } else {
+            restaurant.photoURL = '../../assets/killer-fish.gif';
           }
 
         }, (err) => {
@@ -75,6 +87,7 @@ export class HomePage {
       .then( data => {
           this.lat = data.latitude;
           this.lon = data.longitude;
+          this.canGetRestaurants = true;
         },
         data => {
           console.error(data);

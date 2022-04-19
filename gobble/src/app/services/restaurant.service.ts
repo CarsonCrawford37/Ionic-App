@@ -14,7 +14,7 @@ export class RestaurantService {
     ll: this.coords.latitude.toString() + ',' + this.coords.longitude.toString(),
     radius: '8000',
     categories: '13065',
-    fields: 'fsq_id,name,location'
+    fields: 'fsq_id,name,location,description'
   };
 
   private options = {
@@ -30,7 +30,7 @@ export class RestaurantService {
   async checkYoSelf() {
     await Geolocation.checkPermissions()
       .then(permissionStatus => {
-        if (permissionStatus.location != 'granted') {
+        if (permissionStatus.location !== 'granted') {
           Geolocation.requestPermissions({permissions: ['location']});
         }
       });
