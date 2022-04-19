@@ -7,30 +7,72 @@ import {RestaurantService} from '../services/restaurant.service';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage {
-  lat: Number;
-  lon: Number;
-  foods: any;
+  lat: number;
+  lon: number;
+  restaurantsString: string;
+  restaurants = [];
+  photoURLS = [];
 
 
   constructor(public restaurantService: RestaurantService) {
     this.updateCoords();
   }
 
-  getFoods() {
+  getRestaurants() {
+
+    this.restaurants = [];
+
     this.restaurantService.getRestaurants()
       .then((res) => {
-        console.log(res);
-        this.foods = JSON.stringify(res, null, 4);
+
+        for (const re of res) {
+          this.restaurants.push({
+            id: re.fsq_id,
+            name: re.name,
+            address: re.location.address,
+            photoURL: '',
+          });
+        }
+
+        this.getRestaurantPhotos();
+        // this.restaurantsString = JSON.stringify(this.restaurants, null, 4);
+        this.restaurantsString = 'got foods!';
+
+        console.log(this.restaurants);
+
       }, (err) => {
         console.error(err);
-        this.foods = 'there was a problem finding places to eat near you :(';
+        this.restaurantsString = 'there was a problem finding places to eat near you :(';
       });
+  }
+
+  getRestaurantPhotos() {
+
+    this.photoURLS = [];
+
+    for (const restaurant of this.restaurants) {
+      this.restaurantService.getRestaurantPhoto(restaurant.id)
+        .then((photoData) => {
+
+          if (photoData.length !== 0) {
+            this.photoURLS.push({
+              url: this.restaurantService.getPhotoURL(photoData[0])
+            });
+
+            restaurant.photoURL = this.restaurantService.getPhotoURL(photoData[0]);
+
+          }
+
+        }, (err) => {
+          console.error(err);
+        });
+    }
+
   }
 
   updateCoords() {
     this.restaurantService.getCoords()
       .then( data => {
-          console.log(data);
           this.lat = data.latitude;
           this.lon = data.longitude;
         },
