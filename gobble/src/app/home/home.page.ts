@@ -1,8 +1,5 @@
 import {Component, ElementRef, ViewChild} from '@angular/core';
 import {RestaurantService} from '../services/restaurant.service';
-import {Geolocation, Position} from '@capacitor/geolocation';
-import {GoogleMapComponent} from '../components/google-maps/google-map.component';
-import {Loader} from '@googlemaps/js-api-loader';
 
 @Component({
   selector: 'app-home',
@@ -12,17 +9,30 @@ import {Loader} from '@googlemaps/js-api-loader';
 export class HomePage {
   lat: Number;
   lon: Number;
+  foods: any;
+
 
   constructor(public restaurantService: RestaurantService) {
     this.updateCoords();
+  }
+
+  getFoods() {
+    this.restaurantService.getRestaurants()
+      .then((res) => {
+        console.log(res);
+        this.foods = JSON.stringify(res, null, 4);
+      }, (err) => {
+        console.error(err);
+        this.foods = 'there was a problem finding places to eat near you :(';
+      });
   }
 
   updateCoords() {
     this.restaurantService.getCoords()
       .then( data => {
           console.log(data);
-          this.lat = data.coords.latitude;
-          this.lon = data.coords.longitude;
+          this.lat = data.latitude;
+          this.lon = data.longitude;
         },
         data => {
           console.error(data);
@@ -30,4 +40,8 @@ export class HomePage {
   }
 
 }
+
+
+
+
 

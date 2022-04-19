@@ -18,10 +18,13 @@
     Longitude: {{lon}}
   </div>
 
-  <div slot="fixed">
-    <google-map></google-map>
-  </div>
+  <ion-button (click)="getFoods()">Get Foods</ion-button>
 
+  <pre>
+    <code>
+      {{foods}}
+    </code>
+  </pre>
 
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
     <ion-fab-button (click)="updateCoords()">
