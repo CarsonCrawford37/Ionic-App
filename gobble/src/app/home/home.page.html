@@ -14,13 +14,35 @@
 
 <ion-content padding>
 
+  <ion-row [hidden]="whereToEat.id === null">
+    <ion-col size="4"></ion-col>
+    <ion-col size="12" size-lg>
+      <h2>you should eat at:</h2>
+    </ion-col>
+    <ion-col size="4"></ion-col>
+  </ion-row>
+
+  <ion-row [hidden]="whereToEat.id === null">
+    <ion-col size="4"></ion-col>
+    <ion-col size="12" size-lg>
+      <ion-card>
+        <ion-img [src]="whereToEat.photoURL"></ion-img>
+        <ion-card-title>{{whereToEat.name}}</ion-card-title>
+        <ion-card-subtitle>{{whereToEat.address}}</ion-card-subtitle>
+        <ion-card-content>{{whereToEat.description}}</ion-card-content>
+      </ion-card>
+    </ion-col>
+    <ion-col size="4"></ion-col>
+  </ion-row>
   <!--  <div>-->
   <!--    Latitude: {{lat}}-->
   <!--    Longitude: {{lon}}-->
   <!--  </div>-->
 
   <!--  <ion-button (click)="getRestaurants()">get foods</ion-button>-->
-  <tinder-ui [restaurants]="restaurants" (choiceMade)="logChoice($event)"></tinder-ui>
+  <app-tinder-ui [restaurants]="restaurants" (choiceMade)="logChoice($event)"></app-tinder-ui>
+
+
   <!-- <ion-grid>
     <ion-row>
 

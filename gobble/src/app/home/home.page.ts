@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { RestaurantService } from '../services/restaurant.service';
+import {DecisionService} from '../services/decision.service';
 
 @Component({
   selector: 'app-home',
@@ -13,8 +14,16 @@ export class HomePage {
   restaurants = [];
   photoURLS = [];
   canGetRestaurants = false;
+  hideWhereToEat = true;
+  whereToEat: any = {
+    id: null,
+    name: null,
+    address: null,
+    photoURL: null,
+    description: null,
+  };
 
-  constructor(public restaurantService: RestaurantService) {
+  constructor(public restaurantService: RestaurantService, public decisionService: DecisionService) {
 
   }
 
@@ -24,6 +33,7 @@ export class HomePage {
 
   async loadRestaurants() {
 
+    this.decisionService.resetDecisions();
     await this.updateCoords();
 
     if (this.canGetRestaurants) {
@@ -31,6 +41,13 @@ export class HomePage {
       this.canGetRestaurants = false;
 
       this.restaurants = [];
+      this.whereToEat = {
+        id: null,
+        name: null,
+        address: null,
+        photoURL: null,
+        description: null,
+      };
 
       this.restaurantService.getRestaurants()
         .then((res) => {
@@ -40,16 +57,14 @@ export class HomePage {
               id: re.fsq_id,
               name: re.name,
               address: re.location.address,
-              photoURL: '',
+              photoURL: re.photoURL,
               description: re.description
             });
           }
 
-          this.getRestaurantPhotos();
+          // this.getRestaurantPhotos();
           // this.restaurantsString = JSON.stringify(this.restaurants, null, 4);
           this.restaurantsString = 'got foods!';
-
-          console.log(this.restaurants);
 
         }, (err) => {
           console.error(err);
@@ -101,6 +116,23 @@ export class HomePage {
             console.error(err);
           });
     }));
+
+  }
+
+  logChoice(evt) {
+    console.log(evt);
+    if (evt.choice === true) {
+      this.decisionService.approve(evt.restaurant);
+    } else {
+      this.decisionService.deny(evt.restaurant);
+    }
+
+    if (evt.cardsLeft === 0) {
+      this.whereToEat = this.decisionService.getRandomApproved();
+      console.log('where to eat: ');
+      console.log(this.whereToEat);
+      this.hideWhereToEat = false;
+    }
 
   }
 

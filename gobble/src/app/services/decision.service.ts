@@ -5,8 +5,8 @@ import { Injectable } from '@angular/core';
 })
 export class DecisionService {
 
-  private approved = [];
-  private denied = [];
+  public approved = [];
+  public denied = [];
 
   constructor() { }
 

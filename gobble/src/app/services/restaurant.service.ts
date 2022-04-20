@@ -14,7 +14,7 @@ export class RestaurantService {
     ll: this.coords.latitude.toString() + ',' + this.coords.longitude.toString(),
     radius: '8000',
     categories: '13065',
-    fields: 'fsq_id,name,location,description'
+    fields: 'fsq_id,name,location,description,photos'
   };
 
   private options = {
@@ -57,9 +57,8 @@ export class RestaurantService {
       this.getRestaurantsFromAPI()
         .then((json) => {
 
-          const places = json.results;
-          // const restaurants = places.map( (place) => place.name);
           const restaurants = json.results;
+          this.getFirstPhoto(restaurants);
 
           resolve(restaurants);
         }, (err) => {
@@ -97,6 +96,16 @@ export class RestaurantService {
         .catch(err => console.error(err));
     });
 
+  }
+
+  public getFirstPhoto(restaurantData) {
+
+    for (const r of restaurantData) {
+
+      const photo = r.photos[0];
+      r.photoURL = this.getPhotoURL(photo);
+
+    }
   }
 
   public getPhotoURL(photoData): string {
