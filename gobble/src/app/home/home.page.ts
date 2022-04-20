@@ -1,5 +1,5 @@
-import {Component, ElementRef, ViewChild} from '@angular/core';
-import {RestaurantService} from '../services/restaurant.service';
+import { Component } from '@angular/core';
+import { RestaurantService } from '../services/restaurant.service';
 
 @Component({
   selector: 'app-home',
@@ -14,12 +14,15 @@ export class HomePage {
   photoURLS = [];
   canGetRestaurants = false;
 
-
   constructor(public restaurantService: RestaurantService) {
-    this.getRestaurants();
+
   }
 
-  async getRestaurants() {
+  // loadRestaurants() {
+  //   this.getRestaurants();
+  // }
+
+  async loadRestaurants() {
 
     await this.updateCoords();
 
@@ -88,12 +91,12 @@ export class HomePage {
 
     return new Promise(((resolve, reject) => {
       this.restaurantService.getCoords()
-        .then( data => {
-            this.lat = data.latitude;
-            this.lon = data.longitude;
-            this.canGetRestaurants = true;
-            resolve(true);
-          },
+        .then(data => {
+          this.lat = data.latitude;
+          this.lon = data.longitude;
+          this.canGetRestaurants = true;
+          resolve(true);
+        },
           (err) => {
             console.error(err);
           });

@@ -30,6 +30,7 @@
     "@foursquare/foursquare-places": "^1.0.3",
     "@googlemaps/js-api-loader": "^1.14.0",
     "@ionic/angular": "^6.0.0",
+    "hammerjs": "^2.0.8",
     "rxjs": "~6.6.0",
     "tslib": "^2.2.0",
     "zone.js": "~0.11.4"
