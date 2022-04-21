@@ -7,9 +7,15 @@ import {DecisionService} from '../services/decision.service';
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
 })
+
+
 export class HomePage {
   lat: number;
   lon: number;
+  priceRange: number;
+  selectedCategories: any;
+  openNow: boolean;
+  restaurantCategories = this.restaurantService.categories;
   restaurantsString: string;
   restaurants = [];
   photoURLS = [];
@@ -49,7 +55,11 @@ export class HomePage {
         description: null,
       };
 
-      this.restaurantService.getRestaurants()
+      this.restaurantService.getRestaurants({
+        priceRange: this.priceRange,
+        categories: this.selectedCategories,
+        openNow: this.openNow
+      })
         .then((res) => {
 
           for (const re of res) {
@@ -58,7 +68,9 @@ export class HomePage {
               name: re.name,
               address: re.location.address,
               photoURL: re.photoURL,
-              description: re.description
+              description: re.description,
+              price: re.price,
+              website: re.website
             });
           }
 
@@ -120,7 +132,6 @@ export class HomePage {
   }
 
   logChoice(evt) {
-    console.log(evt);
     if (evt.choice === true) {
       this.decisionService.approve(evt.restaurant);
     } else {
@@ -129,8 +140,6 @@ export class HomePage {
 
     if (evt.cardsLeft === 0) {
       this.whereToEat = this.decisionService.getRandomApproved();
-      console.log('where to eat: ');
-      console.log(this.whereToEat);
       this.hideWhereToEat = false;
     }
 

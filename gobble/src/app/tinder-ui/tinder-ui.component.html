@@ -24,9 +24,10 @@
       *ngFor="let restaurant of this.restaurants; let i = index"
       [ngStyle]="{ zIndex: restaurants.length - i, transform: 'scale(' + (20 - i) / 20 + ') translateY(-' + 20 * i + 'px)' }">
 
-      <img #restaurantCardImage [src]="restaurant.photoURL" (load)="restaurantCardImage.style.opacity = 1">
+      <img class="tinder--card--image" #restaurantCardImage [src]="restaurant.photoURL" (load)="restaurantCardImage.style.opacity = 1">
       <h3>{{ restaurant.name }}</h3>
-      <p>{{restaurant.address}}</p>
+      <p> <em>{{restaurant.address}}</em> | <strong class="price-tags">{{'$'.repeat(restaurant.price)}}</strong></p>
+      <a [href]="restaurant.website" target="_blank" rel="noopener">Website <ion-icon name="open-outline"></ion-icon></a>
       <p>{{ restaurant.description }}</p>
 
     </div>

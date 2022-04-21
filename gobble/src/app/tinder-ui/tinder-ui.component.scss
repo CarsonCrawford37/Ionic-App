@@ -32,7 +32,7 @@
   
   .tinder--card {
     display: inline-block;
-    width: 260px;
+    width: 320px;
     height: 70%;
     background: #8c8c8c;
     padding-bottom: 40px;
@@ -44,6 +44,10 @@
     cursor: -webkit-grab;
     cursor: -moz-grab;
     cursor: grab;
+  }
+
+  .tinder--card--image {
+    pointer-events: none;
   }
   
   .tinder--buttons {

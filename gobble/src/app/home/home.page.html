@@ -14,26 +14,76 @@
 
 <ion-content padding>
 
-  <ion-row [hidden]="whereToEat.id === null">
-    <ion-col size="4"></ion-col>
-    <ion-col size="12" size-lg>
-      <h2>you should eat at:</h2>
-    </ion-col>
-    <ion-col size="4"></ion-col>
-  </ion-row>
+  <ion-fab vertical="bottom" horizontal="end" >
+    <ion-fab-button id="filter-btn">
+      <ion-icon name="filter-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 
-  <ion-row [hidden]="whereToEat.id === null">
-    <ion-col size="4"></ion-col>
-    <ion-col size="12" size-lg>
-      <ion-card>
-        <ion-img [src]="whereToEat.photoURL"></ion-img>
-        <ion-card-title>{{whereToEat.name}}</ion-card-title>
-        <ion-card-subtitle>{{whereToEat.address}}</ion-card-subtitle>
-        <ion-card-content>{{whereToEat.description}}</ion-card-content>
-      </ion-card>
-    </ion-col>
-    <ion-col size="4"></ion-col>
-  </ion-row>
+  <ion-modal trigger="filter-btn">
+    <ng-template>
+      <ion-content>
+
+        <ion-header [translucent]="true">
+          <ion-toolbar>
+            <ion-title>filter foods</ion-title>
+          </ion-toolbar>
+        </ion-header>
+        <ion-list>
+
+          <ion-item>
+            <ion-label>price range</ion-label>
+            <ion-select interface="popover" [(ngModel)]="priceRange">
+              <ion-select-option value="0">any</ion-select-option>
+              <ion-select-option value="1">$</ion-select-option>
+              <ion-select-option value="2">$$</ion-select-option>
+              <ion-select-option value="3">$$$</ion-select-option>
+              <ion-select-option value="4">$$$$</ion-select-option>
+            </ion-select>
+          </ion-item>
+
+          <ion-item>
+            <ion-label>categories</ion-label>
+            <ion-select [(ngModel)]="selectedCategories" multiple="true">
+              <ion-select-option *ngFor="let category of restaurantCategories" [value]="category.id">{{category.name}}</ion-select-option>
+            </ion-select>
+          </ion-item>
+
+          <ion-item>
+            <ion-label>open now?</ion-label>
+            <ion-checkbox [(ngModel)]="openNow"></ion-checkbox>
+          </ion-item>
+
+        </ion-list>
+
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+
+
+
+  <ion-grid [hidden]="whereToEat.id === null">
+    <ion-row>
+          <ion-col size="4"></ion-col>
+          <ion-col size="12" size-lg>
+            <h2>you should eat at:</h2>
+            <ion-card>
+              <ion-img [src]="whereToEat.photoURL"></ion-img>
+              <ion-card-title>{{whereToEat.name}}</ion-card-title>
+              <ion-card-subtitle><em>{{whereToEat.address}}</em> | <strong>{{'$'.repeat(whereToEat.price)}}</strong></ion-card-subtitle>
+              <ion-card-content>
+                <a [href]="whereToEat.website" [hidden]="whereToEat.website === '' || whereToEat.website === null || whereToEat.website === undefined">Website</a>
+                <p>{{whereToEat.description}}</p>
+              </ion-card-content>
+            </ion-card>
+          </ion-col>
+          <ion-col size="4"></ion-col>
+
+    </ion-row>
+  </ion-grid>
+
+
+
   <!--  <div>-->
   <!--    Latitude: {{lat}}-->
   <!--    Longitude: {{lon}}-->
