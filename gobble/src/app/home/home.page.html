@@ -14,7 +14,7 @@
 
 <ion-content class="background-image" padding>
 
-  <ion-fab style="margin-bottom: -6px;" vertical="bottom" horizontal="end" >
+  <ion-fab style="margin-bottom: -6px; margin-right: 10px;" slot="fixed" vertical="bottom" horizontal="end" >
     <ion-fab-button color="tertiary" id="filter-btn">
       <ion-icon name="filter-outline"></ion-icon>
     </ion-fab-button>
@@ -73,7 +73,7 @@
               <ion-card-subtitle class="cardAdress"><em>{{whereToEat.address}}</em> | <strong>{{'$'.repeat(whereToEat.price)}}</strong></ion-card-subtitle>
               <ion-card-content>
                 <a class="cardLink" [href]="whereToEat.website" [hidden]="whereToEat.website === '' || whereToEat.website === null || whereToEat.website === undefined">Website</a>
-                <p class="cardDesc">{{whereToEat.description}}</p>
+                <p class="cardDescBig">{{whereToEat.description}}</p>
               </ion-card-content>
             </ion-card>
           </ion-col>
