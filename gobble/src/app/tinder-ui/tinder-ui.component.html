@@ -25,10 +25,10 @@
       [ngStyle]="{ zIndex: restaurants.length - i, transform: 'scale(' + (20 - i) / 20 + ') translateY(-' + 20 * i + 'px)' }">
 
       <img class="tinder--card--image" #restaurantCardImage [src]="restaurant.photoURL" (load)="restaurantCardImage.style.opacity = 1">
-      <h3>{{ restaurant.name }}</h3>
-      <p> <em>{{restaurant.address}}</em> | <strong class="price-tags">{{'$'.repeat(restaurant.price)}}</strong></p>
-      <a [href]="restaurant.website" target="_blank" rel="noopener">Website <ion-icon name="open-outline"></ion-icon></a>
-      <p>{{ restaurant.description }}</p>
+      <h3 class="cardTitle">{{ restaurant.name }}</h3>
+      <p class="cardAdress"> <em>{{restaurant.address}}</em> | <strong class="price-tags">{{'$'.repeat(restaurant.price)}}</strong></p>
+      <a class="cardLink" [href]="restaurant.website" target="_blank" rel="noopener">Website <ion-icon name="open-outline"></ion-icon></a>
+      <p class="cardDesc">{{ restaurant.description }}</p>
 
     </div>
   </div>

@@ -1,3 +1,9 @@
+*{
+  font-family: 'Amatic SC', bold;
+  --color: #faebd7;
+  font-weight: bold;
+}
+
 #container {
   text-align: center;
 
@@ -28,4 +34,64 @@
 
 #map {
   height: 50vh;
+}
+
+.background-image{
+  --background: url(../../assets/gobbleBackground.jpg);
+  /*--ion-background-color:rgb(123, 90, 6);*/
+}
+
+.headerStyle{
+  text-align: center;
+  --background: #452103;
+  border-bottom: 5px solid #934B00;
+}
+
+.footerStyle{
+  text-align: center;
+  --background: #452103;
+  border-top: 5px solid #934B00;
+}
+
+.titleFont{
+  font-family: 'Gluten', cursive;
+  font-size: 33px;
+  margin-top: 8px;
+}
+
+.defaultFont{
+  font-family: 'Amatic SC', bold;
+  font-weight: bold;
+}
+
+.textOverBack{
+  font-family: 'Amatic SC', bold;
+  font-weight: bold;
+  font-size: 35px;
+  text-shadow: 1.3px 1.3px 2px #210F04;
+  text-align: center;
+  margin: auto;
+}
+
+ion-label.defaultFont{
+  font-size: 26px;
+}
+
+ion-title.defaultFont{
+  font-size: 30px;
+}
+
+ion-button{
+  font-size: 26px;
+  width: 40%;
+  margin: auto;
+}
+
+.finalCard{
+  border: 5px solid #934B00;
+  text-align: center;
+}
+
+.finalCardImage{
+  border-bottom: 5px solid #934B00;
 }

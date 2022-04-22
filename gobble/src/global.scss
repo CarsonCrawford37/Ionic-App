@@ -24,3 +24,25 @@
 @import "~@ionic/angular/css/text-alignment.css";
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
+
+/*fonts*/
+@import url('https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&family=Gluten:wght@300&display=swap');
+
+/*global text*/
+.cardTitle{
+    font-size: 30px;
+  }
+
+  .cardAdress{
+    font-size: 20px;
+  }
+
+  .cardLink{
+    font-size: 20px;
+    color: #BB6B00; 
+  }
+
+  .cardDesc{
+    font-size: 18px;
+    padding: 0px 20px 0px 20px;
+  }
